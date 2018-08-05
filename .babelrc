@@ -21,6 +21,7 @@
         "webpackRequireWeakId": true
       }
     ],
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "transform-class-properties"
   ]
 }
