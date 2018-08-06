@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
+import { register } from 'api/pages/register';
 class Register extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { id: '', username: '', email: '', password: '', repassword: '' };
-  }
-
   onChange = (e) => { this.setState({ [e.target.name]: e.target.value }); }
 
   onSubmit = (e) => {
     e.preventDefault();
+    register(this.state);
+    // console.log(this.state);
   }
 
   render() {
