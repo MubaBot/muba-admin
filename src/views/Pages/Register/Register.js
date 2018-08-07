@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Button, CardGroup, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Alert } from 'reactstrap';
-import { register } from 'api/pages/auth';
+import { register, existAdminUser } from 'api/pages/auth';
 
 class Register extends Component {
   constructor(props) {
     super(props);
-
     this.state = { visible: false, alert: '' };
+
+    existAdminUser().then(result => {
+      if (result.data.exist === true)
+        this.props.history.push('/login');
+    });
   }
 
   onChange = (e) => { this.setState({ [e.target.name]: e.target.value }); }
@@ -36,7 +40,7 @@ class Register extends Component {
           return this.setState({ visible: true, alert: '이미 존재하는 계정입니다.' });
         default:
           return this.setState({ visible: true, alert: '죄송합니다. 잠시 후 다시 시도해 주세요.' });
-      };
+      }
     });
   }
 
@@ -100,8 +104,8 @@ class Register extends Component {
                     <div>
                       <h2>SNS</h2>
                       <p>SNS계정을 이용하여 가입합니다.</p>
-                        <Button color="danger" className="mt-3" active>Google</Button>{' '}
-                        <Button color="primary" className="mt-3" active>Facebook</Button>
+                      <Button color="danger" className="mt-3" active>Google</Button>{' '}
+                      <Button color="primary" className="mt-3" active>Facebook</Button>
                     </div>
                   </CardBody>
                 </Card>

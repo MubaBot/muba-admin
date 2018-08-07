@@ -2,6 +2,7 @@
 
 # editor
 .vscode/
+.vs/
 
 # dependencies
 /node_modules
