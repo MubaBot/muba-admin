@@ -1,7 +1,14 @@
 import * as Axios from 'api/axios';
 
+const checkLogin = async () => {
+  const result = await Axios.Get('/auth/login');
+  const isLogin = result.data.isLogin;
+
+  if (!isLogin) Axios.setAuth();
+  return isLogin;
+};
+
 const register = async ({ ...params }) => {
-  return await Axios.Post('/auth/admin', params);
   return await Axios.Post('/auth/admin', {
     id: params.id,
     username: params.username,
@@ -12,7 +19,14 @@ const register = async ({ ...params }) => {
 }
 
 const login = async ({ ...params }) => {
-  return await Axios.Get('/auth/login', params);
+  return await Axios.Post('/auth/login', {
+    ID: params.id,
+    PW: params.password
+  }).then(result => {
+    Axios.setAuth(result.data);
+
+    return true;
+  });
 }
 
 const existAdminUser = async () => {
@@ -20,7 +34,9 @@ const existAdminUser = async () => {
 }
 
 export {
-  register,
   login,
+  register,
+
+  checkLogin,
   existAdminUser
 };
