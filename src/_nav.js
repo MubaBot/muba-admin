@@ -8,7 +8,13 @@ export default {
     {
       name: "Crawler",
       icon: "fa fa-search",
+      url: "/crawler",
       children: [
+        {
+          name: "Dashboard",
+          url: "/crawler/dashboard",
+          icon: "fa fa-database"
+        },
         {
           name: "Keyword",
           url: "/crawler/keywords",

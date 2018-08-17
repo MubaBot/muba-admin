@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Scrap } from "./Graph";
 
 class Keyword extends Component {
   render() {
-    return <div className="animated fadeIn" />;
+    return <Scrap />;
   }
 }
+
 export default Keyword;
