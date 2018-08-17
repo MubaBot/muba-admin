@@ -1,14 +1,21 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
-      // badge: {
-      //   variant: 'info',
-      //   text: 'NEW',
-      // },
+      name: "Dashboard",
+      url: "/dashboard",
+      icon: "icon-speedometer"
     },
+    {
+      name: "Crawler",
+      icon: "fa fa-search",
+      children: [
+        {
+          name: "Keyword",
+          url: "/crawler/keywords",
+          icon: "fa fa-tags"
+        }
+      ]
+    }
     // {
     //   title: true,
     //   name: 'Theme',
@@ -268,5 +275,5 @@ export default {
     //   icon: 'icon-layers',
     //   variant: 'danger',
     // },
-  ],
+  ]
 };

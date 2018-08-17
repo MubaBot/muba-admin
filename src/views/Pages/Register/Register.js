@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, CardGroup, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Alert } from 'reactstrap';
-import { register, existAdminUser } from 'api/pages/auth';
+import { register, existAdminUser } from 'api/axios/auth';
 
 class Register extends Component {
   constructor(props) {

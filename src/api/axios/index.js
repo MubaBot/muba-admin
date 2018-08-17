@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = "http://192.168.0.8:3030";
+const URL = "https://api.micalgenus.ml";
 if (localStorage.getItem('authentication') == null) localStorage.setItem('authentication', 'null');
 
 const CORS = (options) => ({ ...options, headers: { ...options.headers, 'Access-Control-Allow-Origin': '*' } });

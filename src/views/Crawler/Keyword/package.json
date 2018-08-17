@@ -1,0 +1,6 @@
+{
+  "name": "Keyword",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Keyword.js"
+}

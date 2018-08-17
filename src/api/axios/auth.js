@@ -1,4 +1,4 @@
-import * as Axios from 'api/axios';
+import * as Axios from './index';
 
 const checkLogin = async () => {
   const result = await Axios.Get('/auth/login');

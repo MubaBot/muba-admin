@@ -1,7 +1,7 @@
-import React from 'react';
-import Loadable from 'react-loadable'
+import React from "react";
+import Loadable from "react-loadable";
 
-import DefaultLayout from './containers/DefaultLayout';
+import DefaultLayout from "./containers/DefaultLayout";
 
 function Loading() {
   return <div>Loading...</div>;
@@ -118,8 +118,8 @@ function Loading() {
 // });
 
 const Dashboard = Loadable({
-  loader: () => import('./views/Dashboard'),
-  loading: Loading,
+  loader: () => import("./views/Dashboard"),
+  loading: Loading
 });
 
 // const CoreUIIcons = Loadable({
@@ -182,12 +182,15 @@ const Dashboard = Loadable({
 //   loading: Loading,
 // });
 
-
+const Keyword = Loadable({
+  loader: () => import("./views/Crawler/Keyword"),
+  loading: Loading
+});
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: '/', exact: true, name: 'Home', component: DefaultLayout },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+  { path: "/", exact: true, name: "Home", component: DefaultLayout },
+  { path: "/dashboard", name: "Dashboard", component: Dashboard },
   // { path: '/theme', exact: true, name: 'Theme', component: Colors },
   // { path: '/theme/colors', name: 'Colors', component: Colors },
   // { path: '/theme/typography', name: 'Typography', component: Typography },
@@ -227,6 +230,8 @@ const routes = [
   // { path: '/charts', name: 'Charts', component: Charts },
   // { path: '/users', exact: true,  name: 'Users', component: Users },
   // { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: "/crawler", exact: true, name: "Crawler", component: Keyword },
+  { path: "/crawler/keywords", exact: true, name: "Crwawler Keyword", component: Keyword }
 ];
 
 export default routes;
