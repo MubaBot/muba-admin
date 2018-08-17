@@ -1,27 +1,26 @@
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 import { Card, CardBody, CardFooter, CardTitle, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { getStyle } from "@coreui/coreui/dist/js/coreui-utilities";
+import { SingleDatePicker } from "react-dates";
+import moment from "moment";
 
-//Random Numbers
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+const brandPrimary = getStyle("--primary");
+const brandSuccess = getStyle("--success");
 
 var elements = 30;
 var data1 = [];
 var data2 = [];
-var data3 = [];
 
 for (var i = 0; i <= elements; i++) {
-  data1.push(random(50, 200));
-  data2.push(random(80, 100));
-  data3.push(65);
+  data1.push(i);
+  data2.push(elements - i);
 }
 
-const brandPrimary = getStyle("--primary");
-const brandSuccess = getStyle("--success");
 const mainChart = {
   labels: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
   datasets: [
@@ -59,24 +58,14 @@ const mainChartOpts = {
     }
   },
   maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
+  legend: { display: false },
   scales: {
-    xAxes: [
-      {
-        gridLines: {
-          drawOnChartArea: false
-        }
-      }
-    ],
+    xAxes: [{ gridLines: { drawOnChartArea: false } }],
     yAxes: [
       {
         ticks: {
           beginAtZero: true,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250
+          maxTicksLimit: 5
         }
       }
     ]
@@ -92,6 +81,21 @@ const mainChartOpts = {
 };
 
 class Scrap extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      date: moment(),
+      focused: false,
+
+      mainChart: mainChart
+    };
+  }
+
+  onDateChange = date => {
+    return this.setState({ date });
+  };
+
   render() {
     return (
       <div className="animated fadeIn">
@@ -102,16 +106,28 @@ class Scrap extends Component {
                 <Row>
                   <Col sm="5">
                     <CardTitle className="mb-0">Crawler Status</CardTitle>
-                    <div className="small text-muted">Wed Mar 25 2015 09:00:00 GMT+0900 (한국 표준시)</div>
                   </Col>
                   <Col sm="7" className="d-none d-sm-inline-block">
-                    {/* <Button color="primary" className="float-right">
-                      <i className="icon-cloud-download" />
-                    </Button> */}
+                    <div className="float-right">
+                      <SingleDatePicker
+                        id="showDate"
+                        date={this.state.date}
+                        anchorDirection="right"
+                        inputIconPosition="after"
+                        displayFormat="YYYY. MM. DD."
+                        onDateChange={this.onDateChange}
+                        isOutsideRange={() => false}
+                        focused={this.state.focused}
+                        onFocusChange={({ focused }) => this.setState({ focused })}
+                        numberOfMonths={1}
+                        showDefaultInputIcon
+                        small
+                      />
+                    </div>
                   </Col>
                 </Row>
                 <div className="chart-wrapper" style={{ height: 300 + "px", marginTop: 40 + "px" }}>
-                  <Line data={mainChart} options={mainChartOpts} height={300} />
+                  <Line data={this.state.mainChart} options={mainChartOpts} height={300} />
                 </div>
               </CardBody>
               <CardFooter>
