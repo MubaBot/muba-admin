@@ -99,60 +99,56 @@ class Scrap extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col>
-            <Card>
-              <CardBody>
-                <Row>
-                  <Col sm="5">
-                    <CardTitle className="mb-0">Crawler Status</CardTitle>
-                  </Col>
-                  <Col sm="7" className="d-none d-sm-inline-block">
-                    <div className="float-right">
-                      <SingleDatePicker
-                        id="showDate"
-                        date={this.state.date}
-                        anchorDirection="right"
-                        inputIconPosition="after"
-                        displayFormat="YYYY. MM. DD."
-                        onDateChange={this.onDateChange}
-                        isOutsideRange={() => false}
-                        focused={this.state.focused}
-                        onFocusChange={({ focused }) => this.setState({ focused })}
-                        numberOfMonths={1}
-                        showDefaultInputIcon
-                        small
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <div className="chart-wrapper" style={{ height: 300 + "px", marginTop: 40 + "px" }}>
-                  <Line data={this.state.mainChart} options={mainChartOpts} height={300} />
+        <Card>
+          <CardBody>
+            <Row>
+              <Col sm="5">
+                <CardTitle className="mb-0">Crawler Status</CardTitle>
+              </Col>
+              <Col sm="7" className="d-none d-sm-inline-block">
+                <div className="float-right">
+                  <SingleDatePicker
+                    id="showDate"
+                    date={this.state.date}
+                    anchorDirection="right"
+                    inputIconPosition="after"
+                    displayFormat="YYYY. MM. DD."
+                    onDateChange={this.onDateChange}
+                    isOutsideRange={() => false}
+                    focused={this.state.focused}
+                    onFocusChange={({ focused }) => this.setState({ focused })}
+                    numberOfMonths={1}
+                    showDefaultInputIcon
+                    small
+                  />
                 </div>
-              </CardBody>
-              <CardFooter>
-                <Row className="text-center">
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Keyword</div>
-                    <strong>2</strong>
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                    <div className="text-muted">Working</div>
-                    <strong>100 Link</strong>
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Temporary Data</div>
-                    <strong>100 Content</strong>
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Extracted</div>
-                    <strong>100 Content</strong>
-                  </Col>
-                </Row>
-              </CardFooter>
-            </Card>
-          </Col>
-        </Row>
+              </Col>
+            </Row>
+            <div className="chart-wrapper" style={{ height: 300 + "px", marginTop: 40 + "px" }}>
+              <Line data={this.state.mainChart} options={mainChartOpts} height={300} />
+            </div>
+          </CardBody>
+          <CardFooter>
+            <Row className="text-center">
+              <Col sm={12} md className="mb-sm-2 mb-0">
+                <div className="text-muted">Keyword</div>
+                <strong>2</strong>
+              </Col>
+              <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
+                <div className="text-muted">Working</div>
+                <strong>100 Link</strong>
+              </Col>
+              <Col sm={12} md className="mb-sm-2 mb-0">
+                <div className="text-muted">Temporary Data</div>
+                <strong>100 Content</strong>
+              </Col>
+              <Col sm={12} md className="mb-sm-2 mb-0">
+                <div className="text-muted">Extracted</div>
+                <strong>100 Content</strong>
+              </Col>
+            </Row>
+          </CardFooter>
+        </Card>
       </div>
     );
   }
