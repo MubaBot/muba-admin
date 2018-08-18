@@ -13,7 +13,7 @@ class Keyword extends Component {
           </CardHeader>
           <CardBody>
             <InsertKeyword />
-            <KeywordList />
+            <KeywordList {...this.props} />
           </CardBody>
         </Card>
       </div>

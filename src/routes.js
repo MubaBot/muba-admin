@@ -235,7 +235,7 @@ const routes = [
   // { path: '/users', exact: true,  name: 'Users', component: Users },
   // { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: "/crawler/dashboard", exact: true, name: "Crawler", component: CrawlerDashbaord },
-  { path: "/crawler/keywords", exact: true, name: "Crawler Keyword", component: Keyword }
+  { path: "/crawler/keywords/:page?", exact: true, name: "Crawler Keyword", component: Keyword }
 ];
 
 export default routes;

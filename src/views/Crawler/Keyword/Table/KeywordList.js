@@ -1,8 +1,26 @@
 import React, { Component, Fragment } from "react";
 import { Pagination, PaginationItem, PaginationLink, Table } from "reactstrap";
 import KeywordListItem from "./KeywordListItem";
+import { getList } from "api/axios/crawler/keyword";
 
 class KeywordList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      page: this.props.match.params.page || 1
+    };
+  }
+
+  updateKeywordList() {
+    getList({ page: this.state.page })
+      .then(result => console.log(result))
+      .catch(err => console.log(err));
+  }
+
+  componentDidMount = () => this.updateKeywordList();
+  componentWillUpdate = () => this.updateKeywordList();
+
   render() {
     return (
       <Fragment>
@@ -16,10 +34,6 @@ class KeywordList extends Component {
             </tr>
           </thead>
           <tbody>
-            <KeywordListItem />
-            <KeywordListItem />
-            <KeywordListItem />
-            <KeywordListItem />
             <KeywordListItem />
           </tbody>
         </Table>
