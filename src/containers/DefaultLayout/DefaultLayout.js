@@ -10,8 +10,16 @@ import routes from "../../routes";
 import DefaultAside from "./DefaultAside";
 import DefaultFooter from "./DefaultFooter";
 import DefaultHeader from "./DefaultHeader";
+import { checkLogin } from "api/axios/auth";
 
 class DefaultLayout extends Component {
+  constructor(props) {
+    super(props);
+
+    checkLogin().then(isLogin => {
+      if (isLogin === false) this.props.history.push("/login");
+    });
+  }
   render() {
     return (
       <div className="app">
