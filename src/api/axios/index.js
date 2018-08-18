@@ -1,21 +1,29 @@
-import axios from 'axios';
+import axios from "axios";
 
-const URL = "https://api.micalgenus.ml";
-if (localStorage.getItem('authentication') == null) localStorage.setItem('authentication', 'null');
+const apiAxios = axios.create({
+  baseURL: "https://api.micalgenus.ml",
+  headers: { "Access-Control-Allow-Origin": "*" }
+});
 
-const CORS = (options) => ({ ...options, headers: { ...options.headers, 'Access-Control-Allow-Origin': '*' } });
-const appendAuth = (options) => (localStorage.getItem('authentication') !== 'null' ? { ...options, headers: { ...options.headers, 'x-access-token': localStorage.getItem('authentication') } } : options);
+if (localStorage.getItem("authentication") == null) localStorage.setItem("authentication", "null");
 
-const optionBuild = (options) => {
-  // const opt = appendAuth(CORS({ data: options })); console.log(opt); return opt;
-  return appendAuth(CORS({ data: options }));
-}
+const appendAuth = options => (localStorage.getItem("authentication") !== "null" ? { ...options, headers: { ...options.headers, "x-access-token": localStorage.getItem("authentication") } } : options);
+const optionBuild = options => appendAuth({ data: options });
 
-const setAuth = (auth = 'null') => { localStorage.setItem('authentication', auth); };
+const setAuth = (auth = "null") => {
+  localStorage.setItem("authentication", auth);
+};
 
-const Get = async (url, options) => { return axios.get(URL + url, optionBuild(options)); }
-const Post = async (url, options) => { return axios.post(URL + url, optionBuild(options)); }
-const Put = async (url, options) => { return axios.put(URL + url, optionBuild(options)); }
-const Delete = async (url, options) => { return axios.delete(URL + url, optionBuild(options)); }
+const doAxios = (method, url, options) =>
+  apiAxios({
+    method: method,
+    url: url,
+    ...optionBuild(options)
+  });
+
+const Get = async (url, options) => doAxios("GET", url, options);
+const Post = async (url, options) => doAxios("POST", url, options);
+const Put = async (url, options) => doAxios("PUT", url, options);
+const Delete = async (url, options) => doAxios("DELETE", url, options);
 
 export { setAuth, Get, Post, Put, Delete };
