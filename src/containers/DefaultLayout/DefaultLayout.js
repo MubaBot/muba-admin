@@ -41,7 +41,7 @@ class DefaultLayout extends Component {
                 {routes.map((route, idx) => {
                   return route.component ? <Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => <route.component {...props} />} /> : null;
                 })}
-                <Redirect from="/" to="/login" />
+                <Redirect from="/" to="/dashboard" />
               </Switch>
             </Container>
           </main>
