@@ -7,14 +7,14 @@ class Login extends Component {
     super(props);
     this.state = { visible: false, alert: '' };
 
-    existAdminUser().then(result => {
-      if (result.data.exist === false)
-        this.props.history.push('/register');
-    });
-
     checkLogin().then(isLogin => {
       if (isLogin === true)
         this.props.history.push('/dashboard');
+    });
+
+    existAdminUser().then(result => {
+      if (result.data.exist === false)
+        this.props.history.push('/register');
     });
   }
 
