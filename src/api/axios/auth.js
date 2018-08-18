@@ -1,7 +1,7 @@
-import * as Axios from './index';
+import * as Axios from "./index";
 
 const checkLogin = async () => {
-  const result = await Axios.Get('/auth/login');
+  const result = await Axios.Get("/auth/login");
   const isLogin = result.data.isLogin;
 
   if (!isLogin) Axios.setAuth();
@@ -9,17 +9,17 @@ const checkLogin = async () => {
 };
 
 const register = async ({ ...params }) => {
-  return await Axios.Post('/auth/admin', {
+  return await Axios.Post("/auth/admin", {
     id: params.id,
     username: params.username,
     email: params.email,
     password: params.password,
-    repassword: params.repassword,
+    repassword: params.repassword
   });
-}
+};
 
 const login = async ({ ...params }) => {
-  return await Axios.Post('/auth/login', {
+  return await Axios.Post("/auth/login", {
     ID: params.id,
     PW: params.password
   }).then(result => {
@@ -27,16 +27,10 @@ const login = async ({ ...params }) => {
 
     return true;
   });
-}
+};
 
 const existAdminUser = async () => {
-  return await Axios.Get('/auth/admin/check');
-}
-
-export {
-  login,
-  register,
-
-  checkLogin,
-  existAdminUser
+  return await Axios.Get("/auth/admin/exist");
 };
+
+export { login, register, checkLogin, existAdminUser };
