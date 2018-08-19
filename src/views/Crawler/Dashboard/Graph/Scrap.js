@@ -3,11 +3,12 @@ import "react-dates/lib/css/_datepicker.css";
 
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
-import { Card, CardBody, CardFooter, CardTitle, Col, Row } from "reactstrap";
+import { Card, CardBody, CardFooter, Progress, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { getStyle } from "@coreui/coreui/dist/js/coreui-utilities";
 import { SingleDatePicker } from "react-dates";
 import moment from "moment";
+import "moment/locale/ko";
 
 const brandPrimary = getStyle("--primary");
 const brandSuccess = getStyle("--success");
@@ -99,56 +100,50 @@ class Scrap extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Card>
-          <CardBody>
-            <Row>
-              <Col sm="5">
-                <CardTitle className="mb-0">Crawler Status</CardTitle>
-              </Col>
-              <Col sm="7" className="d-none d-sm-inline-block">
-                <div className="float-right">
-                  <SingleDatePicker
-                    id="showDate"
-                    date={this.state.date}
-                    anchorDirection="right"
-                    inputIconPosition="after"
-                    displayFormat="YYYY. MM. DD."
-                    onDateChange={this.onDateChange}
-                    isOutsideRange={() => false}
-                    focused={this.state.focused}
-                    onFocusChange={({ focused }) => this.setState({ focused })}
-                    numberOfMonths={1}
-                    showDefaultInputIcon
-                    small
-                  />
-                </div>
-              </Col>
-            </Row>
-            <div className="chart-wrapper" style={{ height: 300 + "px", marginTop: 40 + "px" }}>
-              <Line data={this.state.mainChart} options={mainChartOpts} height={300} />
+        <Row>
+          <Col sm="5" />
+          <Col sm="7" className="d-none d-sm-inline-block">
+            <div className="float-right">
+              <SingleDatePicker
+                id="showDate"
+                date={this.state.date}
+                anchorDirection="right"
+                inputIconPosition="after"
+                displayFormat="YYYY. MM. DD."
+                onDateChange={this.onDateChange}
+                isOutsideRange={() => false}
+                focused={this.state.focused}
+                onFocusChange={({ focused }) => this.setState({ focused })}
+                numberOfMonths={1}
+                showDefaultInputIcon
+                small
+              />
             </div>
-          </CardBody>
-          <CardFooter>
-            <Row className="text-center">
-              <Col sm={12} md className="mb-sm-2 mb-0">
-                <div className="text-muted">Keyword</div>
-                <strong>2</strong>
-              </Col>
-              <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                <div className="text-muted">Working</div>
-                <strong>100 Link</strong>
-              </Col>
-              <Col sm={12} md className="mb-sm-2 mb-0">
-                <div className="text-muted">Temporary Data</div>
-                <strong>100 Content</strong>
-              </Col>
-              <Col sm={12} md className="mb-sm-2 mb-0">
-                <div className="text-muted">Extracted</div>
-                <strong>100 Content</strong>
-              </Col>
-            </Row>
-          </CardFooter>
-        </Card>
+          </Col>
+        </Row>
+        <div className="chart-wrapper" style={{ height: 300 + "px", marginTop: 40 + "px" }}>
+          <Line data={this.state.mainChart} options={mainChartOpts} height={300} />
+        </div>
+        <Row className="text-center mt-4">
+          <Col sm={12} md className="mb-sm-2 mb-0">
+            <div className="text-muted">Keyword</div>
+            <strong>2</strong>
+          </Col>
+          <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
+            <div className="text-muted">Working</div>
+            <strong>100 Link</strong>
+            <Progress className="progress-xs mt-2" color="primary" value="100" />
+          </Col>
+          <Col sm={12} md className="mb-sm-2 mb-0">
+            <div className="text-muted">Temporary Data</div>
+            <strong>100 Content</strong>
+            <Progress className="progress-xs mt-2" color="success" value="100" />
+          </Col>
+          <Col sm={12} md className="mb-sm-2 mb-0">
+            <div className="text-muted">Extracted</div>
+            <strong>100 Content</strong>
+          </Col>
+        </Row>
       </div>
     );
   }
