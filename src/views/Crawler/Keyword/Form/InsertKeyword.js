@@ -8,13 +8,9 @@ class InsertKeyword extends Component {
     this.state = { visible: false, alert: "에러", keyword: "" };
   }
 
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onDismiss = () => {
-    this.setState({ visible: false });
-  };
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onDismiss = () => this.setState({ visible: false });
+  showAlert = msg => this.setState({ visible: true, alert: msg });
 
   onEnterKeyPress = e => {
     if (e.target.value === "") return null;
@@ -23,16 +19,17 @@ class InsertKeyword extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    create({
-      keyword: this.state.keyword
-    })
-      .then(() => this.setState({ keyword: "" }))
+
+    create({ keyword: this.state.keyword })
+      .then(() => this.onDismiss())
       .catch(e => {
         switch (e.response.data.success) {
           case -1:
-            return this.setState({ visible: true, alert: "키워드를 입력해 주세요." });
+            return this.showAlert("키워드를 입력해 주세요.");
+          case -2:
+            return this.showAlert("이미 존재하는 키워드 입니다.");
           default:
-            return this.setState({ visible: true, alert: "죄송합니다. 잠시 후 다시 시도해 주세요." });
+            return this.showAlert("죄송합니다. 잠시 후 다시 시도해 주세요.");
         }
       });
   };
@@ -53,7 +50,7 @@ class InsertKeyword extends Component {
           <Col xs="4">
             <FormGroup>
               <InputGroup>
-                <Input required name="keyword" value={this.state.keyword} placeholder="New keyword" size="16" type="text" onChange={this.onChange} onKeyPress={this.onEnterKeyPress} />
+                <Input required name="keyword" value={this.state.keyword} placeholder="키워드" size="16" type="text" onChange={this.onChange} onKeyPress={this.onEnterKeyPress} />
                 <InputGroupAddon addonType="append">
                   <Button ref="Button" color="secondary" onClick={this.onSubmit}>
                     추가
