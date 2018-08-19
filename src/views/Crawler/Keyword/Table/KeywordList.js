@@ -78,7 +78,7 @@ class KeywordList extends Component {
           </thead>
           <tbody>
             {this.state.lists.map((x, i) => (
-              <KeywordListItem key={x._id} id={x._id} keyword={x.keyword} date={x.createdAt} />
+              <KeywordListItem key={x._id} id={x._id} keyword={x.keyword} date={x.createdAt} worker={x.worker} />
             ))}
           </tbody>
         </Table>

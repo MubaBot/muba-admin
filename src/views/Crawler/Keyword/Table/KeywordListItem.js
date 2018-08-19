@@ -23,7 +23,7 @@ class KeywordListItem extends Component {
       <tr>
         <td className="text-center">{this.props.keyword}</td>
         <td className="text-center">{this.state.date}</td>
-        <td className="text-center">0</td>
+        <td className="text-center">{this.props.worker}</td>
         <td className="text-center">
           <Button block color="ghost-primary">
             작업 등록
