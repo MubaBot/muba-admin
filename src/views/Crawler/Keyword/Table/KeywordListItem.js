@@ -3,6 +3,8 @@ import { Button } from "reactstrap";
 import moment from "moment";
 import "moment/locale/ko";
 
+import { reWork } from "api/axios/crawler/works";
+
 class KeywordListItem extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +20,16 @@ class KeywordListItem extends Component {
     });
   };
 
+  reWork = () => {
+    reWork({ keyword: this.props.keyword })
+      .then(result => {
+        this.props.reloadList();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <tr>
@@ -25,7 +37,7 @@ class KeywordListItem extends Component {
         <td className="text-center">{this.state.date}</td>
         <td className="text-center">{this.props.worker}</td>
         <td className="text-center">
-          <Button block color="ghost-primary">
+          <Button block color="ghost-primary" onClick={this.reWork}>
             작업 등록
           </Button>
         </td>
