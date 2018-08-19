@@ -12,4 +12,10 @@ const getList = async ({ page, ...params }) => {
   }).catch(err => null);
 };
 
-export { create, getList };
+const deleteKeyword = async ({ keyword, ...params }) => {
+  return Axios.Delete("/api/crawler/keyword", {
+    keyword: keyword
+  });
+};
+
+export { create, getList, deleteKeyword };

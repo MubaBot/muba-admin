@@ -3,6 +3,7 @@ import { Button } from "reactstrap";
 import moment from "moment";
 import "moment/locale/ko";
 
+import { deleteKeyword } from "api/axios/crawler/keyword";
 import { reWork } from "api/axios/crawler/works";
 
 class KeywordListItem extends Component {
@@ -30,6 +31,17 @@ class KeywordListItem extends Component {
       });
   };
 
+  deleteKeyword = () => {
+    deleteKeyword({ keyword: this.props.keyword })
+      .then(result => {
+        console.log(result);
+        this.props.reloadList();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <tr>
@@ -42,7 +54,7 @@ class KeywordListItem extends Component {
           </Button>
         </td>
         <td className="text-center">
-          <Button block color="ghost-danger">
+          <Button block color="ghost-danger" onClick={this.deleteKeyword}>
             삭제
           </Button>
         </td>
