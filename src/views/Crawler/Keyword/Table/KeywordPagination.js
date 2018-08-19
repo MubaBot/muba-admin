@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import { isEqual } from "lodash";
 
-const pageCount = 1;
+const pageCount = 3;
 
 class KeywordPagination extends Component {
   constructor(props) {
