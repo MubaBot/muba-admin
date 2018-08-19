@@ -21,7 +21,10 @@ class InsertKeyword extends Component {
     e.preventDefault();
 
     create({ keyword: this.state.keyword })
-      .then(() => this.setState({ visible: false, keyword: "" }))
+      .then(() => {
+        this.setState({ visible: false, keyword: "" });
+        this.props.reloadList();
+      })
       .catch(e => {
         switch (e.response.data.success) {
           case -1:

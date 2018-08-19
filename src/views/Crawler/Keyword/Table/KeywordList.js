@@ -4,6 +4,8 @@ import { isEqual } from "lodash";
 
 import KeywordListItem from "./KeywordListItem";
 import KeywordPagination from "./KeywordPagination";
+
+import { InsertKeyword } from "../Form";
 import { getList } from "api/axios/crawler/keyword";
 
 class KeywordList extends Component {
@@ -56,6 +58,7 @@ class KeywordList extends Component {
   render() {
     return (
       <Fragment>
+        <InsertKeyword reloadList={this.updateKeywordList} />
         <Table responsive striped>
           <colgroup>
             <col />
