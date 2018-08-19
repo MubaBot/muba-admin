@@ -1,41 +1,80 @@
 import React, { Component, Fragment } from "react";
-import { Pagination, PaginationItem, PaginationLink, Table } from "reactstrap";
-import KeywordListItem from "./KeywordListItem";
-import { getList } from "api/axios/crawler/keyword";
+import { Table } from "reactstrap";
 import { isEqual } from "lodash";
+
+import KeywordListItem from "./KeywordListItem";
+import KeywordPagination from "./KeywordPagination";
+import { getList } from "api/axios/crawler/keyword";
 
 class KeywordList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      page: this.props.match.params.page || 1,
+      page: parseInt(this.props.match.params.page, 10) || 1,
+      lastPage: 0,
       lists: [],
-      update: true
+      update: true,
+      count: 0
     };
+
+    this.updateKeywordList().then(state => (this.state.count = state.count));
+    this.onChangePage(this.state.page);
   }
 
-  updateKeywordList() {
-    getList({ page: this.state.page })
+  updateKeywordList = async page => {
+    const p = page || this.state.page;
+
+    return getList({ page: p })
       .then(result => {
-        const update = !isEqual(this.state.lists, result.data);
+        const update = !isEqual(this.state.lists, result.data.lists);
 
         this.setState({
-          lists: update ? result.data : this.state.lists,
-          update: update
+          lists: update ? result.data.lists : this.state.lists,
+          update: update,
+          count: result.data.count,
+          display: result.data.displayCount,
+          lastPage: p
         });
-      })
-      .catch(err => console.log(err));
-  }
 
-  shouldComponentUpdate = () => this.state.update;
+        return this.state;
+      })
+      .catch(err => {
+        this.setState({ lastPage: p });
+        console.log(err);
+      });
+  };
+
+  onChangePage = page => {
+    if (page < 1) page = 1;
+    if (page > Math.ceil(this.state.count / this.state.display)) page = Math.ceil(this.state.count / this.state.display);
+
+    this.setState({ update: true, page: page, lastPage: this.state.page });
+    if (this.state.page !== page) {
+      this.updateKeywordList(page);
+      this.props.history.push("/crawler/keywords/" + page);
+    }
+  };
+
+  // shouldComponentUpdate = () => {
+  //   if (this.state.lastPage === this.state.page) return false;
+  //   return this.state.update;
+  // };
+
   componentDidMount = () => this.updateKeywordList();
-  componentWillUpdate = () => this.updateKeywordList();
+  // componentWillUpdate = () => this.updateKeywordList();
 
   render() {
     return (
       <Fragment>
         <Table responsive striped>
+          <colgroup>
+            <col />
+            <col width="25%" />
+            <col width="15%" />
+            <col width="75px" />
+            <col width="75px" />
+          </colgroup>
           <thead>
             <tr>
               <th className="text-center">키워드</th>
@@ -47,25 +86,11 @@ class KeywordList extends Component {
           </thead>
           <tbody>
             {this.state.lists.map((x, i) => (
-              <KeywordListItem key={x._id} id={x._id} keyword={x.keyword} date={x.updatedAt} />
+              <KeywordListItem key={x._id} id={x._id} keyword={x.keyword} date={x.createdAt} />
             ))}
           </tbody>
         </Table>
-        <Pagination>
-          <PaginationItem disabled>
-            <PaginationLink previous tag="button">
-              Prev
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink tag="button">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink next tag="button">
-              Next
-            </PaginationLink>
-          </PaginationItem>
-        </Pagination>
+        <KeywordPagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
       </Fragment>
     );
   }
