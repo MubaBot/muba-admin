@@ -21,7 +21,7 @@ class InsertKeyword extends Component {
     e.preventDefault();
 
     create({ keyword: this.state.keyword })
-      .then(() => this.onDismiss())
+      .then(() => this.setState({ visible: false, keyword: "" }))
       .catch(e => {
         switch (e.response.data.success) {
           case -1:
