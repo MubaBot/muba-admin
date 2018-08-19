@@ -20,7 +20,7 @@ class KeywordPagination extends Component {
 
   componentWillReceiveProps = props => {
     const start = props.page - pageCount < 1 ? 1 : props.page - pageCount;
-    const end = props.page + pageCount > Math.ceil(props.count / this.state.display) ? Math.ceil(props.count / this.state.display) : props.page + pageCount;
+    const end = props.page + pageCount > Math.ceil(props.count / props.display) ? Math.ceil(props.count / props.display) : props.page + pageCount;
     const update = this.state.start !== start || this.state.end !== end || props.page !== this.state.page;
 
     this.setState({
@@ -30,6 +30,8 @@ class KeywordPagination extends Component {
       display: props.display,
       page: props.page
     });
+
+    this.forceUpdate();
   };
 
   componentDidUpdate = () => {
@@ -38,16 +40,14 @@ class KeywordPagination extends Component {
 
     this.setState({
       items: items,
-      update: isEqual(items, this.state.items)
+      update: !isEqual(items, this.state.items)
     });
   };
 
-  shouldComponentUpdate = () => this.state.update;
+  shouldComponentUpdate = (props, state) => state.update;
 
   onClick = page => {
-    this.setState({
-      update: true
-    });
+    this.setState({ update: true });
 
     this.props.onChangePage(page);
   };

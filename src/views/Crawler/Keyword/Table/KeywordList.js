@@ -12,14 +12,12 @@ class KeywordList extends Component {
 
     this.state = {
       page: parseInt(this.props.match.params.page, 10) || 1,
-      lastPage: 0,
       lists: [],
       update: true,
       count: 0
     };
 
-    this.updateKeywordList().then(state => (this.state.count = state.count));
-    this.onChangePage(this.state.page);
+    // this.updateKeywordList(this.state.page);
   }
 
   updateKeywordList = async page => {
@@ -33,14 +31,10 @@ class KeywordList extends Component {
           lists: update ? result.data.lists : this.state.lists,
           update: update,
           count: result.data.count,
-          display: result.data.displayCount,
-          lastPage: p
+          display: result.data.displayCount
         });
-
-        return this.state;
       })
       .catch(err => {
-        this.setState({ lastPage: p });
         console.log(err);
       });
   };
@@ -49,20 +43,15 @@ class KeywordList extends Component {
     if (page < 1) page = 1;
     if (page > Math.ceil(this.state.count / this.state.display)) page = Math.ceil(this.state.count / this.state.display);
 
-    this.setState({ update: true, page: page, lastPage: this.state.page });
+    this.setState({ update: true, page: page });
     if (this.state.page !== page) {
       this.updateKeywordList(page);
       this.props.history.push("/crawler/keywords/" + page);
     }
   };
 
-  // shouldComponentUpdate = () => {
-  //   if (this.state.lastPage === this.state.page) return false;
-  //   return this.state.update;
-  // };
-
+  // shouldComponentUpdate = (props, state) => state.update;
   componentDidMount = () => this.updateKeywordList();
-  // componentWillUpdate = () => this.updateKeywordList();
 
   render() {
     return (
