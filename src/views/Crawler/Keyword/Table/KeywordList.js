@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Table } from "reactstrap";
+import { Table, Label } from "reactstrap";
 import { isEqual } from "lodash";
 
 import KeywordListItem from "./KeywordListItem";
@@ -18,8 +18,6 @@ class KeywordList extends Component {
       update: true,
       count: 0
     };
-
-    // this.updateKeywordList(this.state.page);
   }
 
   updateKeywordList = async page => {
@@ -52,12 +50,12 @@ class KeywordList extends Component {
     }
   };
 
-  // shouldComponentUpdate = (props, state) => state.update;
   componentDidMount = () => this.updateKeywordList();
 
   render() {
     return (
       <Fragment>
+        <Label>전체 {this.state.count}개</Label>
         <InsertKeyword reloadList={this.updateKeywordList} />
         <Table responsive striped>
           <colgroup>

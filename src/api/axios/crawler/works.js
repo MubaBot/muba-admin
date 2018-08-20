@@ -6,4 +6,8 @@ const reWork = async ({ keyword, ...params }) => {
   });
 };
 
-export { reWork };
+const getWorkerByKeyword = async ({ keyword, ...params }) => {
+  return Axios.Get("/api/crawler/keyword/worker/" + keyword);
+};
+
+export { reWork, getWorkerByKeyword };

@@ -3,6 +3,8 @@ import { Button } from "reactstrap";
 import moment from "moment";
 import "moment/locale/ko";
 
+import WorkerList from "./WorkerList";
+
 import { deleteKeyword } from "api/axios/crawler/keyword";
 import { reWork } from "api/axios/crawler/works";
 
@@ -47,7 +49,9 @@ class KeywordListItem extends Component {
       <tr>
         <td className="text-center">{this.props.keyword}</td>
         <td className="text-center">{this.state.date}</td>
-        <td className="text-center">{this.props.worker}</td>
+        <td className="text-center">
+          <WorkerList keyword={this.props.keyword} count={this.props.worker} />
+        </td>
         <td className="text-center">
           <Button block color="ghost-primary" onClick={this.reWork}>
             작업 등록
