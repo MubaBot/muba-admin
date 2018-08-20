@@ -6,7 +6,7 @@ import "moment/locale/ko";
 import WorkerList from "./WorkerList";
 
 import { deleteKeyword } from "api/axios/crawler/keyword";
-import { reWork } from "api/axios/crawler/works";
+import { reWork } from "api/axios/crawler/worker";
 
 class KeywordListItem extends Component {
   constructor(props) {

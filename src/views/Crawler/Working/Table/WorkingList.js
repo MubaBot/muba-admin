@@ -2,8 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Table, Label } from "reactstrap";
 import { isEqual } from "lodash";
 
-// import KeywordListItem from "./KeywordListItem";
-// import KeywordPagination from "./KeywordPagination";
+import WorkingListItem from "./WorkingListItem";
+import WorkingPagination from "./WorkingPagination";
 
 import { getList } from "api/axios/crawler/working";
 
@@ -19,7 +19,7 @@ class WorkingList extends Component {
     };
   }
 
-  updateKeywordList = async page => {
+  updateWorkingList = page => {
     const p = page || this.state.page;
 
     return getList({ page: p })
@@ -44,12 +44,12 @@ class WorkingList extends Component {
 
     this.setState({ update: true, page: page });
     if (this.state.page !== page) {
-      this.updateKeywordList(page);
-      this.props.history.push("/crawler/keywords/" + page);
+      this.updateWorkingList(page);
+      this.props.history.push("/crawler/working/" + page);
     }
   };
 
-  componentDidMount = () => this.updateKeywordList();
+  componentDidMount = () => this.updateWorkingList();
 
   render() {
     return (
@@ -58,27 +58,21 @@ class WorkingList extends Component {
         <Table responsive striped>
           <colgroup>
             <col />
-            <col width="25%" />
-            <col width="15%" />
-            <col width="75px" />
             <col width="75px" />
           </colgroup>
           <thead>
             <tr>
-              <th className="text-center">키워드</th>
-              <th className="text-center">등록일</th>
-              <th className="text-center">작업수</th>
-              <th className="text-center">재검색</th>
+              <th className="text-center">URL</th>
               <th className="text-center">삭제</th>
             </tr>
           </thead>
           <tbody>
-            {/* {this.state.lists.map((x, i) => (
-              <KeywordListItem key={x._id} id={x._id} keyword={x.keyword} date={x.createdAt} worker={x.worker} reloadList={this.updateKeywordList} />
-            ))} */}
+            {this.state.lists.map((x, i) => (
+              <WorkingListItem key={x._id} id={x._id} url={x.url} />
+            ))}
           </tbody>
         </Table>
-        {/* <KeywordPagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} /> */}
+        <WorkingPagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
       </Fragment>
     );
   }

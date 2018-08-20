@@ -23,7 +23,7 @@ export default {
         {
           name: "Working",
           url: "/crawler/working",
-          icon: "fa fa-search"
+          icon: "fa fa-tasks"
         }
       ]
     }

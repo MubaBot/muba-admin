@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, CardHeader } from "reactstrap";
+import { WorkingList } from "./Table";
 
 class Working extends Component {
   render() {
@@ -9,7 +10,9 @@ class Working extends Component {
           <CardHeader>
             <i className="fa fa-align-justify" /> Working
           </CardHeader>
-          <CardBody />
+          <CardBody>
+            <WorkingList {...this.props} />
+          </CardBody>
         </Card>
       </div>
     );
