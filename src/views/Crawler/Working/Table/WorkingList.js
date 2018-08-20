@@ -68,7 +68,7 @@ class WorkingList extends Component {
           </thead>
           <tbody>
             {this.state.lists.map((x, i) => (
-              <WorkingListItem key={x._id} id={x._id} url={x.url} />
+              <WorkingListItem key={x._id} id={x._id} url={x.url} reloadList={this.updateWorkingList} />
             ))}
           </tbody>
         </Table>

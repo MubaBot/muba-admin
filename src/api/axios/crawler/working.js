@@ -4,4 +4,8 @@ const getList = async ({ page, ...params }) => {
   return Axios.Get("/api/crawler/working/list/" + page);
 };
 
-export { getList };
+const deleteWorkingById = async ({ id, ...params }) => {
+  return Axios.Delete("/api/crawler/working/" + id);
+};
+
+export { getList, deleteWorkingById };

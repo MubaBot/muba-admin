@@ -36,7 +36,6 @@ class KeywordListItem extends Component {
   deleteKeyword = () => {
     deleteKeyword({ keyword: this.props.keyword })
       .then(result => {
-        console.log(result);
         this.props.reloadList();
       })
       .catch(err => {
