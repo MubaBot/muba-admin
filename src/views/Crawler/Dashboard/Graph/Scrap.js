@@ -3,7 +3,7 @@ import "react-dates/lib/css/_datepicker.css";
 
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
-import { Card, CardBody, CardFooter, Progress, Col, Row } from "reactstrap";
+import { Progress, Col, Row } from "reactstrap";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import { getStyle } from "@coreui/coreui/dist/js/coreui-utilities";
 import { SingleDatePicker } from "react-dates";
