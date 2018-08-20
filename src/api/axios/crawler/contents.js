@@ -10,4 +10,8 @@ const deleteContent = async ({ id, ...params }) => {
   });
 };
 
-export { getList, deleteContent };
+const getContentById = async ({ id, ...params }) => {
+  return Axios.Get("/api/crawler/contents/" + id);
+};
+
+export { getList, deleteContent, getContentById };

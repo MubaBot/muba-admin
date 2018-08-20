@@ -3,6 +3,7 @@ import { Table, Label } from "reactstrap";
 import { isEqual } from "lodash";
 
 import ContentListItem from "./ContentListItem";
+import ContentPagination from "./ContentPagination";
 
 import { getList } from "api/axios/crawler/contents";
 
@@ -18,12 +19,11 @@ class ContentList extends Component {
     };
   }
 
-  updateKeywordList = async page => {
+  updateContentsList = async page => {
     const p = page || this.state.page;
 
     return getList({ page: p })
       .then(result => {
-        console.log(result);
         const update = !isEqual(this.state.lists, result.data.lists);
 
         this.setState({
@@ -44,12 +44,12 @@ class ContentList extends Component {
 
     this.setState({ update: true, page: page });
     if (this.state.page !== page) {
-      this.updateKeywordList(page);
+      this.updateContentsList(page);
       this.props.history.push("/crawler/contents/" + page);
     }
   };
 
-  componentDidMount = () => this.updateKeywordList();
+  componentDidMount = () => this.updateContentsList();
 
   render() {
     return (
@@ -70,11 +70,11 @@ class ContentList extends Component {
           </thead>
           <tbody>
             {this.state.lists.map((x, i) => (
-              <ContentListItem key={x._id} id={x._id} title={x.title} url={x.url} reloadList={this.updateKeywordList} />
+              <ContentListItem key={x._id} id={x._id} title={x.title} url={x.url} reloadList={this.updateContentsList} />
             ))}
           </tbody>
         </Table>
-        {/* <KeywordPagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} /> */}
+        <ContentPagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
       </Fragment>
     );
   }
