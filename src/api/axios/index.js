@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiAxios = axios.create({
-  baseURL: "https://api.micalgenus.ml",
+  baseURL: "http://192.168.0.8:3030",
   headers: { "Access-Control-Allow-Origin": "*" }
 });
 

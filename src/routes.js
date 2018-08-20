@@ -191,6 +191,11 @@ const Keyword = Loadable({
   loading: Loading
 });
 
+const Working = Loadable({
+  loader: () => import("./views/Crawler/Working"),
+  loading: Loading
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: "/", exact: true, name: "Home", component: DefaultLayout },
@@ -235,7 +240,8 @@ const routes = [
   // { path: '/users', exact: true,  name: 'Users', component: Users },
   // { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: "/crawler/dashboard", exact: true, name: "Crawler", component: CrawlerDashbaord },
-  { path: "/crawler/keywords/:page?", exact: true, name: "Crawler Keyword", component: Keyword }
+  { path: "/crawler/keywords/:page?", exact: true, name: "Crawler Keyword", component: Keyword },
+  { path: "/crawler/working/:page?", exact: true, name: "Crawler Working", component: Working }
 ];
 
 export default routes;
