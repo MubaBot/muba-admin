@@ -7,7 +7,6 @@ class WorkingListItem extends Component {
   deleteWorking = () => {
     deleteWorkingById({ id: this.props.id })
       .then(result => {
-        console.log(result);
         this.props.reloadList();
       })
       .catch(err => {

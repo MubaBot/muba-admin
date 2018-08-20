@@ -13,7 +13,12 @@ export default {
         {
           name: "Dashboard",
           url: "/crawler/dashboard",
-          icon: "fa fa-database"
+          icon: "fa fa-tachometer"
+        },
+        {
+          name: "Contents",
+          url: "/crawler/contents",
+          icon: "fa fa-file-text-o"
         },
         {
           name: "Keyword",
