@@ -19,6 +19,11 @@ export default {
           name: "Keyword",
           url: "/crawler/keywords",
           icon: "fa fa-tags"
+        },
+        {
+          name: "Working",
+          url: "/crawler/working",
+          icon: "fa fa-search"
         }
       ]
     }
