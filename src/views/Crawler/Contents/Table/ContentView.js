@@ -48,7 +48,7 @@ class ContentView extends React.Component {
   render() {
     return (
       <div>
-        <a onClick={this.toggle} href="">
+        <a onClick={this.toggle} href={this.props.url}>
           {this.props.url}
         </a>
         <Modal isOpen={this.state.modal} toggle={this.toggle} style={{ maxWidth: "80%" }}>
