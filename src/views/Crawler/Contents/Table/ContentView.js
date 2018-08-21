@@ -23,13 +23,6 @@ class ContentView extends React.Component {
     });
   };
 
-  toggle = e => {
-    e.preventDefault();
-    this.setState({
-      modal: !this.state.modal
-    });
-  };
-
   changeHTML = e => this.setState({ activeTab: !this.state.activeTab });
 
   componentWillUpdate = (props, state) => {
@@ -61,14 +54,22 @@ class ContentView extends React.Component {
           </ModalHeader>
           <ModalBody>
             <TabContent activeTab={this.state.activeTab}>
-              <TabPane tabId={true}>
-                <Row>
-                  <Col sm="12" dangerouslySetInnerHTML={{ __html: this.state.content }} />
-                </Row>
+              <TabPane className="viewer" tabId={true}>
+                <style jsx>{`
+                  .viewer img {
+                    max-width: 100%;
+                    height: auto;
+                  }
+                `}</style>
+                <Row dangerouslySetInnerHTML={{ __html: this.state.content }} />
+                <Row dangerouslySetInnerHTML={{ __html: this.state.comment }} />
               </TabPane>
               <TabPane tabId={false}>
                 <Row>
                   <Col sm="12">{this.state.content}</Col>
+                </Row>
+                <Row>
+                  <Col sm="12">{this.state.comment}</Col>
                 </Row>
               </TabPane>
             </TabContent>
