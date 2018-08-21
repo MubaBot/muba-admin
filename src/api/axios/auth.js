@@ -22,12 +22,10 @@ const login = async ({ id, password, ...params }) => {
   return await Axios.Post("/auth/login", {
     ID: id,
     PW: password
-  })
-    .then(result => {
-      Axios.setAuth(result.data);
-      return true;
-    })
-    .catch(err => false);
+  }).then(result => {
+    Axios.setAuth(result.data);
+    return true;
+  });
 };
 
 const existAdminUser = async () => {
