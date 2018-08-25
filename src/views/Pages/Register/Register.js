@@ -7,10 +7,10 @@ class Register extends Component {
     super(props);
     this.state = { visible: false, alert: '' };
 
-    existAdminUser().then(result => {
-      if (result.data.exist === true)
-        this.props.history.push('/login');
-    });
+    // existAdminUser().then(result => {
+    //   if (result.data.exist === true)
+    //     this.props.history.push('/login');
+    // });
   }
 
   onChange = (e) => { this.setState({ [e.target.name]: e.target.value }); }
