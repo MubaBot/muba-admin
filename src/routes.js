@@ -191,6 +191,11 @@ const CrawlerContents = Loadable({
   loading: Loading
 });
 
+const CrawlerShops = Loadable({
+  loader: () => import("./views/Crawler/Shop"),
+  loading: Loading
+});
+
 const Keyword = Loadable({
   loader: () => import("./views/Crawler/Keyword"),
   loading: Loading
@@ -244,8 +249,9 @@ const routes = [
   // { path: '/charts', name: 'Charts', component: Charts },
   // { path: '/users', exact: true,  name: 'Users', component: Users },
   // { path: '/users/:id', exact: true, name: 'User Details', component: User },
-  { path: "/crawler/dashboard", exact: true, name: "Crawler", component: CrawlerDashbaord },
-  { path: "/crawler/contents/:page?", exact: true, name: "Crawler Keyword", component: CrawlerContents },
+  { path: "/crawler/dashboard", exact: true, name: "Crawler Dashboard", component: CrawlerDashbaord },
+  { path: "/crawler/contents/:page?", exact: true, name: "Crawler Contents", component: CrawlerContents },
+  { path: "/crawler/shops/:page?", exact: true, name: "Crawler Shops", component: CrawlerShops },
   { path: "/crawler/keywords/:page?", exact: true, name: "Crawler Keyword", component: Keyword },
   { path: "/crawler/working/:page?", exact: true, name: "Crawler Working", component: Working }
 ];

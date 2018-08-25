@@ -3,7 +3,7 @@ import { Table, Label } from "reactstrap";
 import { isEqual } from "lodash";
 
 import KeywordListItem from "./KeywordListItem";
-import KeywordPagination from "./KeywordPagination";
+import Pagination from "components/Pagination";
 
 import { InsertKeyword } from "../Form";
 import { getList } from "api/axios/crawler/keyword";
@@ -80,7 +80,7 @@ class KeywordList extends Component {
             ))}
           </tbody>
         </Table>
-        <KeywordPagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
+        <Pagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
       </Fragment>
     );
   }

@@ -8,7 +8,10 @@ class InsertKeyword extends Component {
     this.state = { visible: false, alert: "에러", keyword: "" };
   }
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = e => {
+    this.onDismiss();
+    this.setState({ [e.target.name]: e.target.value });
+  };
   onDismiss = () => this.setState({ visible: false });
   showAlert = msg => this.setState({ visible: true, alert: msg });
 

@@ -4,7 +4,7 @@ import { isEqual } from "lodash";
 
 const pageCount = 3;
 
-class ContentPagination extends Component {
+export default class TablePagination extends Component {
   constructor(props) {
     super(props);
 
@@ -74,5 +74,3 @@ class ContentPagination extends Component {
     );
   }
 }
-
-export default ContentPagination;

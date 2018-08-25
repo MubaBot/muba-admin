@@ -55,7 +55,7 @@ class ContentView extends React.Component {
           <ModalBody>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane className="viewer" tabId={true}>
-                <style jsx>{`
+                <style>{`
                   .viewer img {
                     max-width: 100%;
                     height: auto;

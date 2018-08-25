@@ -3,7 +3,7 @@ import { Table, Label } from "reactstrap";
 import { isEqual } from "lodash";
 
 import WorkingListItem from "./WorkingListItem";
-import WorkingPagination from "./WorkingPagination";
+import Pagination from "components/Pagination";
 
 import { getList } from "api/axios/crawler/working";
 
@@ -72,7 +72,7 @@ class WorkingList extends Component {
             ))}
           </tbody>
         </Table>
-        <WorkingPagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
+        <Pagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
       </Fragment>
     );
   }

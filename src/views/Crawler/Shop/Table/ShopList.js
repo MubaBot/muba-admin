@@ -2,12 +2,12 @@ import React, { Component, Fragment } from "react";
 import { Table, Label } from "reactstrap";
 import { isEqual } from "lodash";
 
-import ContentListItem from "./ContentListItem";
+import ShopListItem from "./ShopListItem";
 import Pagination from "components/Pagination";
 
-import { getList } from "api/axios/crawler/contents";
+import { getList } from "api/axios/crawler/shops";
 
-class ContentList extends Component {
+class ShopList extends Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +19,7 @@ class ContentList extends Component {
     };
   }
 
-  updateContentsList = async page => {
+  updateShopList = page => {
     const p = page || this.state.page;
 
     return getList({ page: p })
@@ -44,12 +44,12 @@ class ContentList extends Component {
 
     this.setState({ update: true, page: page });
     if (this.state.page !== page) {
-      this.updateContentsList(page);
-      this.props.history.push("/crawler/contents/" + page);
+      this.updateShopList(page);
+      this.props.history.push("/crawler/shops/" + page);
     }
   };
 
-  componentDidMount = () => this.updateContentsList();
+  componentDidMount = () => this.updateShopList();
 
   render() {
     return (
@@ -57,20 +57,25 @@ class ContentList extends Component {
         <Label>전체 {this.state.count}개</Label>
         <Table responsive striped>
           <colgroup>
-            <col width="60%" />
+            <col />
+            <col />
+            <col />
             <col />
             <col width="75px" />
           </colgroup>
           <thead>
             <tr>
-              <th className="text-center">제목</th>
-              <th className="text-center">URL</th>
+              <th className="text-center">가게명</th>
+              <th className="text-center">주소</th>
+              <th className="text-center">영업 시간</th>
+              <th className="text-center">번호</th>
+              <th className="text-center">메뉴</th>
               <th className="text-center">삭제</th>
             </tr>
           </thead>
           <tbody>
             {this.state.lists.map((x, i) => (
-              <ContentListItem key={x._id} id={x._id} title={x.title} url={x.url} reloadList={this.updateContentsList} />
+              <ShopListItem key={x._id} id={x._id} {...x} reloadList={this.updateShopList} />
             ))}
           </tbody>
         </Table>
@@ -80,4 +85,4 @@ class ContentList extends Component {
   }
 }
 
-export default ContentList;
+export default ShopList;

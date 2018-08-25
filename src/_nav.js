@@ -21,6 +21,11 @@ export default {
           icon: "fa fa-file-text-o"
         },
         {
+          name: "Shops",
+          url: "/crawler/shops",
+          icon: "fa fa-building"
+        },
+        {
           name: "Keyword",
           url: "/crawler/keywords",
           icon: "fa fa-tags"
