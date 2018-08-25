@@ -8,4 +8,8 @@ const deleteWorkingById = async ({ id, ...params }) => {
   return Axios.Delete("/api/crawler/working/" + id);
 };
 
-export { getList, deleteWorkingById };
+const removeAllWorking = async ({ ...params }) => {
+  return Axios.Delete("/api/crawler/working/all");
+};
+
+export { getList, deleteWorkingById, removeAllWorking };

@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Table, Label } from "reactstrap";
+import { Button, Row, Col, Table, Label } from "reactstrap";
 import { isEqual } from "lodash";
 
 import WorkingListItem from "./WorkingListItem";
 import Pagination from "components/Pagination";
 
-import { getList } from "api/axios/crawler/working";
+import { getList, removeAllWorking } from "api/axios/crawler/working";
 
 class WorkingList extends Component {
   constructor(props) {
@@ -49,12 +49,25 @@ class WorkingList extends Component {
     }
   };
 
+  removeAllWorking = () => {
+    return removeAllWorking()
+      .then(() => this.updateWorkingList())
+      .catch(err => console.log(err));
+  };
+
   componentDidMount = () => this.updateWorkingList();
 
   render() {
     return (
       <Fragment>
         <Label>전체 {this.state.count}개</Label>
+        <Row className="mb-3">
+          <Col>
+            <Button className="float-right" color="danger" onClick={this.removeAllWorking}>
+              전체 삭제
+            </Button>
+          </Col>
+        </Row>
         <Table responsive striped>
           <colgroup>
             <col />
