@@ -5,6 +5,17 @@ const apiAxios = axios.create({
   headers: { "Access-Control-Allow-Origin": "*" }
 });
 
+apiAxios.interceptors.response.use(
+  res => res,
+  err => {
+    if (err.response.status === 401) {
+      setAuth();
+      window.location.href = "/#/login";
+    }
+    return Promise.reject(err);
+  }
+);
+
 if (localStorage.getItem("authentication") == null) localStorage.setItem("authentication", "null");
 
 const appendAuth = options => (localStorage.getItem("authentication") !== "null" ? { ...options, headers: { ...options.headers, "x-access-token": localStorage.getItem("authentication") } } : options);
