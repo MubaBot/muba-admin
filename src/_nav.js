@@ -16,6 +16,11 @@ export default {
           icon: "fa fa-tachometer"
         },
         {
+          name: "Configuration",
+          url: "/crawler/config",
+          icon: "fa fa-wrench"
+        },
+        {
           name: "Contents",
           url: "/crawler/contents",
           icon: "fa fa-file-text-o"
