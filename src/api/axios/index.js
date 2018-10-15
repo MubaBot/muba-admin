@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiAxios = axios.create({
-  baseURL: "https://api.micalgenus.ml",
+  baseURL: "https://api.mubabot.com",
   headers: { "Access-Control-Allow-Origin": "*" }
 });
 

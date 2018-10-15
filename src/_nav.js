@@ -6,6 +6,17 @@ export default {
       icon: "icon-speedometer"
     },
     {
+      name: "Business",
+      icon: "icon-speedometer",
+      children: [
+        {
+          name: "Request",
+          url: "/business/request",
+          icon: "fa fa-tachometer"
+        }
+      ]
+    },
+    {
       name: "Crawler",
       icon: "fa fa-search",
       url: "/crawler",

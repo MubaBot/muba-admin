@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Table, Label } from "reactstrap";
+import { Table, Label, Button, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Progress } from "reactstrap";
 import { isEqual } from "lodash";
 
 import ShopListItem from "./ShopListItem";
 import Pagination from "components/Pagination";
 
-import { getList } from "api/axios/crawler/shops";
+import { getList, moveShops } from "api/axios/crawler/shops";
 
 class ShopList extends Component {
   constructor(props) {
@@ -15,28 +15,13 @@ class ShopList extends Component {
       page: parseInt(this.props.match.params.page, 10) || 1,
       lists: [],
       update: true,
-      count: 0
+      count: 0,
+      modal: false,
+      now: 0
     };
   }
 
-  updateShopList = page => {
-    const p = page || this.state.page;
-
-    return getList({ page: p })
-      .then(result => {
-        const update = !isEqual(this.state.lists, result.data.lists);
-
-        this.setState({
-          lists: update ? result.data.lists : this.state.lists,
-          update: update,
-          count: result.data.count,
-          display: result.data.displayCount
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  componentDidMount = () => this.updateShopList();
 
   onChangePage = page => {
     if (page < 1) page = 1;
@@ -49,12 +34,61 @@ class ShopList extends Component {
     }
   };
 
-  componentDidMount = () => this.updateShopList();
+  toggle = () => this.setState({ modal: !this.state.modal });
+
+  updateShopList = page => {
+    const p = page || this.state.page;
+
+    return getList({ page: p })
+      .then(result => {
+        const update = !isEqual(this.state.lists, result.data.lists);
+
+        this.setState({
+          lists: update ? result.data.lists : this.state.lists,
+          update: update,
+          count: result.data.count,
+          display: result.data.displayCount,
+          now: 0
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  moveShops = async () => {
+    this.toggle();
+    this.setState({ now: 0 });
+    const pages = Math.ceil(this.state.count / this.state.display);
+    var i = 0;
+    for (i = 0; i < pages && (this.state.now === 0 || this.state.modal); i++) {
+      const result = await moveShops({ page: i, pageCount: this.state.display })
+        .then(() => this.setState({ now: this.state.now + this.state.display }))
+        .catch(() => false);
+
+      if (result === false) {
+        alert("fail");
+        this.toggle();
+        return this.updateShopList();
+      }
+    }
+
+    if (i === pages) this.toggle();
+
+    this.updateShopList();
+  };
 
   render() {
     return (
       <Fragment>
         <Label>전체 {this.state.count}개</Label>
+        <Row className="mb-3">
+          <Col>
+            <Button className="float-right" color="success" onClick={this.moveShops}>
+              데이터 이동
+            </Button>
+          </Col>
+        </Row>
         <Table responsive striped>
           <colgroup>
             <col />
@@ -80,6 +114,21 @@ class ShopList extends Component {
           </tbody>
         </Table>
         <Pagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
+        <Modal isOpen={this.state.modal}>
+          <ModalHeader>
+            {this.state.now} / {this.state.count}개 진행중
+          </ModalHeader>
+
+          <ModalBody>
+            <Progress animated value={(this.state.now / this.state.count) * 100} />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button color="secondary" onClick={this.toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
       </Fragment>
     );
   }

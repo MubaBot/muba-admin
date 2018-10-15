@@ -7,9 +7,7 @@ const create = async ({ keyword, ...params }) => {
 };
 
 const getList = async ({ page, ...params }) => {
-  return Axios.Get("/api/crawler/keyword/list/" + page, {
-    page: page
-  }).catch(err => null);
+  return Axios.Get("/api/crawler/keyword/list/" + page);
 };
 
 const deleteKeyword = async ({ keyword, ...params }) => {

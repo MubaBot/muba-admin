@@ -8,4 +8,11 @@ const deleteShopById = async ({ id, ...params }) => {
   return Axios.Delete("/api/crawler/shops/" + id);
 };
 
-export { getList, deleteShopById };
+const moveShops = async ({ pageCount, page }) => {
+  return Axios.Put("/api/crawler/shops/move", {
+    pageCount: pageCount,
+    page: page
+  });
+};
+
+export { getList, deleteShopById, moveShops };
