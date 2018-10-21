@@ -12,6 +12,7 @@ export default class RequestListItem extends Component {
         <td onClick={() => this.props.showPhoto(this.props.URL)}>{this.props.URL}</td>
         <td onClick={() => this.props.admissionRequest(this.props._id)}>
           <Button color="success">승인</Button>
+          <Button color="danger">거절</Button>
         </td>
       </tr>
     );

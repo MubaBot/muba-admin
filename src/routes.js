@@ -12,6 +12,11 @@ const Dashboard = Loadable({
   loading: Loading
 });
 
+const AdminMember = Loadable({
+  loader: () => import("./views/Admin/Member"),
+  loading: Loading
+});
+
 const BusinessRequest = Loadable({
   loader: () => import("./views/Business/Request"),
   loading: Loading
@@ -51,6 +56,8 @@ const Working = Loadable({
 const routes = [
   { path: "/", exact: true, name: "Home", component: DefaultLayout },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
+
+  { path: "/admin/:page?", name: "Admin Member", component: AdminMember },
 
   { path: "/business/request/:page?", name: "Business Request", component: BusinessRequest },
 

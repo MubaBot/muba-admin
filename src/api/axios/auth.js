@@ -32,4 +32,16 @@ const existAdminUser = async () => {
   return await Axios.Get("/auth/admin/exist");
 };
 
-export { login, register, checkLogin, existAdminUser };
+const getAdminMemberList = async ({ page }) => {
+  return Axios.Get("/auth/admin/" + page);
+};
+
+const allowAdmin = async ({ id }) => {
+  return Axios.Put(["/auth/admin", id, "allow"].join("/"));
+};
+
+const blockAdmin = async ({ id }) => {
+  return Axios.Put(["/auth/admin", id, "block"].join("/"));
+};
+
+export { login, register, checkLogin, existAdminUser, getAdminMemberList, allowAdmin, blockAdmin };

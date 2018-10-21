@@ -6,6 +6,11 @@ export default {
       icon: "icon-speedometer"
     },
     {
+      name: "Admin Member",
+      url: "/admin",
+      icon: "icon-speedometer"
+    },
+    {
       name: "Business",
       icon: "icon-speedometer",
       children: [
