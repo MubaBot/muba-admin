@@ -9,10 +9,16 @@ const deleteShopById = async ({ id, ...params }) => {
 };
 
 const moveShops = async ({ pageCount, page }) => {
-  return Axios.Put("/api/crawler/shops/move", {
+  return Axios.Post("/api/crawler/shops/move", {
     pageCount: pageCount,
     page: page
   });
 };
 
-export { getList, deleteShopById, moveShops };
+const reSearch = async ({ count }) => {
+  return Axios.Put("/api/crawler/shops/search", {
+    count
+  });
+};
+
+export { getList, deleteShopById, moveShops, reSearch };

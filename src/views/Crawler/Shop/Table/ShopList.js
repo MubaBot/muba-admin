@@ -5,7 +5,7 @@ import { isEqual } from "lodash";
 import ShopListItem from "./ShopListItem";
 import Pagination from "components/Pagination";
 
-import { getList, moveShops } from "api/axios/crawler/shops";
+import { getList, moveShops, reSearch } from "api/axios/crawler/shops";
 
 class ShopList extends Component {
   constructor(props) {
@@ -78,6 +78,28 @@ class ShopList extends Component {
     this.updateShopList();
   };
 
+  reSearch = async () => {
+    this.toggle();
+    this.setState({ now: 0 });
+    const pages = Math.ceil(this.state.count / this.state.display);
+    var i = 0;
+    for (i = 0; i < pages && (this.state.now === 0 || this.state.modal); i++) {
+      const result = await reSearch({ count: this.state.display })
+        .then(() => this.setState({ now: this.state.now + this.state.display }))
+        .catch(() => false);
+
+      if (result === false) {
+        alert("fail");
+        this.toggle();
+        return this.updateShopList();
+      }
+    }
+
+    if (i === pages) this.toggle();
+
+    this.updateShopList();
+  };
+
   render() {
     return (
       <Fragment>
@@ -86,6 +108,9 @@ class ShopList extends Component {
           <Col>
             <Button className="float-right" color="success" onClick={this.moveShops}>
               데이터 이동
+            </Button>
+            <Button className="float-right" style={{ marginRight: "10px" }} color="success" onClick={this.reSearch}>
+              데이터 재검색
             </Button>
           </Col>
         </Row>
