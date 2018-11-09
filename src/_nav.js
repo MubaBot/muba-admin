@@ -6,10 +6,23 @@ export default {
       icon: "icon-speedometer"
     },
     {
-      name: "Admin Member",
-      url: "/admin",
-      icon: "icon-speedometer"
+      name: "Member",
+      url: "/member",
+      icon: "icon-speedometer",
+      children: [
+        {
+          name: "Admin Member",
+          url: "/member/admin",
+          icon: "icon-speedometer"
+        },
+        {
+          name: "Owner Member",
+          url: "/member/owner",
+          icon: "icon-speedometer"
+        }
+      ]
     },
+
     {
       name: "Business",
       icon: "icon-speedometer",

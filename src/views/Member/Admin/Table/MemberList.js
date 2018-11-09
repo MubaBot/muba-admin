@@ -43,7 +43,7 @@ export default class MemberList extends Component {
     this.setState({ page: page });
     if (this.state.page !== page) {
       this.updateMemberList(page);
-      this.props.history.push("/admin/" + page);
+      this.props.history.push("/member/admin/" + page);
     }
   };
 

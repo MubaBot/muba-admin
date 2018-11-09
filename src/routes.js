@@ -13,7 +13,12 @@ const Dashboard = Loadable({
 });
 
 const AdminMember = Loadable({
-  loader: () => import("./views/Admin/Member"),
+  loader: () => import("./views/Member/Admin"),
+  loading: Loading
+});
+
+const OwnerMember = Loadable({
+  loader: () => import("./views/Member/Owner"),
   loading: Loading
 });
 
@@ -57,7 +62,8 @@ const routes = [
   { path: "/", exact: true, name: "Home", component: DefaultLayout },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
 
-  { path: "/admin/:page?", name: "Admin Member", component: AdminMember },
+  { path: "/member/admin/:page?", name: "Admin Member", component: AdminMember },
+  { path: "/member/owner/:page?", name: "Owner Member", component: OwnerMember },
 
   { path: "/business/request/:page?", name: "Business Request", component: BusinessRequest },
 
