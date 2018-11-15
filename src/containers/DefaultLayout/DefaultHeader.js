@@ -24,7 +24,7 @@ class DefaultHeader extends Component {
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        <AppNavbarBrand full={{ src: "", width: 89, height: 25, alt: "Muba Logo" }} minimized={{ src: "", width: 30, height: 30, alt: "Muba Logo" }} />
+        <AppNavbarBrand full={{ src: "assets/img/logo.svg", width: 89, height: 25, alt: "Muba Logo" }} minimized={{ src: "", width: 30, height: 30, alt: "Muba Logo" }} />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="d-md-down-none" navbar>

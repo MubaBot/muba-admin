@@ -2,7 +2,18 @@ import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 
-import { AppAside, AppBreadcrumb, AppFooter, AppHeader, AppSidebar, AppSidebarFooter, AppSidebarForm, AppSidebarHeader, AppSidebarMinimizer, AppSidebarNav } from "@coreui/react";
+import {
+  AppAside,
+  // AppBreadcrumb,
+  AppFooter,
+  AppHeader,
+  AppSidebar,
+  AppSidebarFooter,
+  AppSidebarForm,
+  AppSidebarHeader,
+  AppSidebarMinimizer,
+  AppSidebarNav
+} from "@coreui/react";
 // sidebar nav config
 import navigation from "../../_nav";
 // routes config
@@ -34,12 +45,14 @@ class DefaultLayout extends Component {
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>
-          <main className="main">
-            <AppBreadcrumb appRoutes={routes} />
+          <main className="main" style={{ paddingTop: "25px" }}>
+            {/* <AppBreadcrumb appRoutes={routes} /> */}
             <Container fluid>
               <Switch>
                 {routes.map((route, idx) => {
-                  return route.component ? <Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => <route.component {...props} />} /> : null;
+                  return route.component ? (
+                    <Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => <route.component {...props} />} />
+                  ) : null;
                 })}
                 <Redirect from="/" to="/dashboard" />
               </Switch>

@@ -3,11 +3,12 @@ import { Table } from "reactstrap";
 import { isEqual } from "lodash";
 
 import Pagination from "components/Pagination";
-import MemberListItem from "./MemberListItem";
+import RequestListItem from "./RequestListItem";
+import PhotoModal from "./PhotoModal";
 
-import { OwnerApi } from "api";
+import { BusinessApi } from "api";
 
-export default class MemberList extends Component {
+export default class RequestList extends Component {
   constructor(props) {
     super(props);
 
@@ -20,10 +21,10 @@ export default class MemberList extends Component {
     };
   }
 
-  updateMemberList = async page => {
+  updateRequestList = async page => {
     const p = page || this.state.page;
 
-    return OwnerApi.getOwnerMemberList({ page: p })
+    return BusinessApi.getRequestBusinessLog({ page: p })
       .then(result => {
         const update = !isEqual(this.state.lists, result.data.lists);
 
@@ -42,12 +43,19 @@ export default class MemberList extends Component {
 
     this.setState({ page: page });
     if (this.state.page !== page) {
-      this.updateMemberList(page);
-      this.props.history.push("/member/owner/" + page);
+      this.updateRequestList(page);
+      this.props.history.push("/business/request/" + page);
     }
   };
 
-  componentDidMount = () => this.updateMemberList();
+  componentDidMount = () => this.updateRequestList();
+
+  toggle = () => this.setState({ modal: !this.state.modal });
+
+  showPhoto = URL => {
+    this.toggle();
+    this.setState({ modalUrl: ["https://api.mubabot.com", "static", "business", localStorage.getItem("authentication"), URL].join("/") });
+  };
 
   render() {
     return (
@@ -55,21 +63,28 @@ export default class MemberList extends Component {
         <Table>
           <thead>
             <tr>
-              <th>아이디</th>
-              <th>이름</th>
-              <th>이메일</th>
-              <th>전화번호</th>
-              <th>관리 매장 수</th>
-              <th>차단</th>
+              <th>가게 이름</th>
+              <th>사업자 등록 번호</th>
+              <th>대표자</th>
+              <th>주소</th>
+              <th>사진</th>
             </tr>
           </thead>
           <tbody>
             {this.state.lists.map((x, i) => (
-              <MemberListItem key={x._id} id={x._id} {...x} reloadList={this.updateMemberList} />
+              <RequestListItem
+                key={x._id}
+                id={x._id}
+                {...x}
+                reloadList={this.updateRequestList}
+                showPhoto={this.showPhoto}
+                admissionRequest={this.admissionRequest}
+              />
             ))}
           </tbody>
         </Table>
         <Pagination page={this.state.page} count={this.state.count} display={this.state.display} onChangePage={this.onChangePage} />
+        <PhotoModal URL={this.state.modalUrl} toggle={this.toggle} modal={this.state.modal} />
       </Fragment>
     );
   }

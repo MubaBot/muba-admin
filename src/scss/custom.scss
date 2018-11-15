@@ -1,0 +1,110 @@
+.multi-header-table th {
+  border: none !important;
+  vertical-align: middle !important;
+}
+
+.multi-header-table td {
+  border-bottom: 1px solid #c8ced3 !important;
+  vertical-align: middle !important;
+}
+
+.multi-header-table thead {
+  border-bottom: 2px solid #c8ced3 !important;
+}
+
+.multi-header-table .alert {
+  padding: 0.35rem 1rem;
+  margin: 0;
+}
+
+.multi-header-table .alert .close {
+  padding: 0.2rem 0.75rem;
+}
+
+#map {
+  .mapAddress {
+    margin-bottom: 102px;
+    border: 1px solid #468ef7;
+    background-color: #fff;
+    padding: 3px 12px;
+    position: relative;
+
+    &:after,
+    &:before {
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-top-color: #fff;
+      border-width: 5px;
+      margin-left: -5px;
+    }
+
+    &:before {
+      border-color: rgba(70, 142, 247, 0);
+      border-top-color: #468ef7;
+      border-width: 6px;
+      margin-left: -6px;
+    }
+  }
+}
+
+.modal .register {
+  .modal-header {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #212529;
+  }
+
+  .modal-body {
+    padding: 0 24px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+
+    & > div {
+      width: 100%;
+    }
+
+    .mapSearch {
+      border-radius: 3px;
+      border: solid 1px #dee2e6;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+
+      input {
+        border: none;
+        padding: 12px 0px 12px 16px;
+        width: calc(100% - 40px);
+      }
+
+      button {
+        display: flex;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 4px;
+        margin-right: 7px;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+      }
+    }
+
+    #map {
+      margin-top: 17px !important;
+    }
+  }
+}

@@ -6131,7 +6131,7 @@ button.bg-dark:focus {
   text-align: right !important; }
 
 .text-center {
-  text-align: center !important; }
+  text-align: center !important;vertical-align: middle !important; }
 
 @media (min-width: 576px) {
   .text-sm-left {

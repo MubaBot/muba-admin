@@ -19,6 +19,11 @@ export default {
           name: "Owner Member",
           url: "/member/owner",
           icon: "icon-speedometer"
+        },
+        {
+          name: "User Member",
+          url: "/member/user",
+          icon: "icon-speedometer"
         }
       ]
     },
@@ -30,6 +35,21 @@ export default {
         {
           name: "Request",
           url: "/business/request",
+          icon: "fa fa-tachometer"
+        },
+        {
+          name: "RequestLog",
+          url: "/business/request/log",
+          icon: "fa fa-tachometer"
+        },
+        {
+          name: "Shop List",
+          url: "/business/shop",
+          icon: "fa fa-tachometer"
+        },
+        {
+          name: "Service Request",
+          url: "/business/service",
           icon: "fa fa-tachometer"
         }
       ]

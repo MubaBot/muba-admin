@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import { Card, CardBody, CardHeader } from "reactstrap";
-import { ShopList } from "./Table";
+import { Card, CardHeader, CardBody } from "reactstrap";
 
-export default class Shop extends Component {
+import RequestList from "./Table";
+
+export default class Request extends Component {
   render() {
     return (
       <div className="animated fadeIn">
         <Card>
           <CardHeader>
-            <i className="fa fa-align-justify" /> 전체 가게
+            <i className="fa fa-align-justify" /> Shops
           </CardHeader>
           <CardBody>
-            <ShopList {...this.props} />
+            <RequestList {...this.props} />
           </CardBody>
         </Card>
       </div>

@@ -54,7 +54,7 @@ export default class RequestList extends Component {
 
   showPhoto = URL => {
     this.toggle();
-    this.setState({ modalUrl: ["https://api.mubabot.com", "static", "business", URL].join("/") });
+    this.setState({ modalUrl: ["https://api.mubabot.com", "static", "business", localStorage.getItem("authentication"), URL].join("/") });
   };
 
   admissionRequest = id => {

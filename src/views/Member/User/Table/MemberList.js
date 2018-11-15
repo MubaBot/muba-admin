@@ -5,7 +5,7 @@ import { isEqual } from "lodash";
 import Pagination from "components/Pagination";
 import MemberListItem from "./MemberListItem";
 
-import { OwnerApi } from "api";
+import { UserApi } from "api";
 
 export default class MemberList extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class MemberList extends Component {
   updateMemberList = async page => {
     const p = page || this.state.page;
 
-    return OwnerApi.getOwnerMemberList({ page: p })
+    return UserApi.getUserMemberList({ page: p })
       .then(result => {
         const update = !isEqual(this.state.lists, result.data.lists);
 
@@ -58,8 +58,6 @@ export default class MemberList extends Component {
               <th>아이디</th>
               <th>이름</th>
               <th>이메일</th>
-              <th>전화번호</th>
-              <th>관리 매장 수</th>
               <th>차단</th>
             </tr>
           </thead>

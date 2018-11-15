@@ -1,34 +1,29 @@
 import React, { Component, Fragment } from "react";
 import { Table } from "reactstrap";
-import { isEqual } from "lodash";
 
 import Pagination from "components/Pagination";
-import MemberListItem from "./MemberListItem";
+import ServiceRequestListItem from "./ServiceRequestListItem";
 
-import { OwnerApi } from "api";
+import { BusinessApi } from "api";
 
-export default class MemberList extends Component {
+export default class ServiceRequestList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       page: parseInt(this.props.match.params.page, 10) || 1,
       lists: [],
-      count: 0,
-
-      modalUrl: ""
+      count: 0
     };
   }
 
-  updateMemberList = async page => {
+  updateRequestList = async page => {
     const p = page || this.state.page;
 
-    return OwnerApi.getOwnerMemberList({ page: p })
+    return BusinessApi.getRequestShopService({ page: p })
       .then(result => {
-        const update = !isEqual(this.state.lists, result.data.lists);
-
         this.setState({
-          lists: update ? result.data.lists : this.state.lists,
+          lists: result.data.lists,
           count: result.data.count,
           display: result.data.displayCount
         });
@@ -42,12 +37,12 @@ export default class MemberList extends Component {
 
     this.setState({ page: page });
     if (this.state.page !== page) {
-      this.updateMemberList(page);
-      this.props.history.push("/member/owner/" + page);
+      this.updateRequestList(page);
+      this.props.history.push("/business/service/" + page);
     }
   };
 
-  componentDidMount = () => this.updateMemberList();
+  componentDidMount = () => this.updateRequestList();
 
   render() {
     return (
@@ -55,17 +50,18 @@ export default class MemberList extends Component {
         <Table>
           <thead>
             <tr>
-              <th>아이디</th>
-              <th>이름</th>
-              <th>이메일</th>
-              <th>전화번호</th>
-              <th>관리 매장 수</th>
-              <th>차단</th>
+              <th>가게 이름</th>
+              <th>입금자 이름</th>
+              <th>기간</th>
+              <th>가격</th>
+              <th>환불 계좌</th>
+              <th>요청 시간</th>
+              <th>관리</th>
             </tr>
           </thead>
           <tbody>
             {this.state.lists.map((x, i) => (
-              <MemberListItem key={x._id} id={x._id} {...x} reloadList={this.updateMemberList} />
+              <ServiceRequestListItem key={x._id} id={x._id} {...x} reloadList={this.updateRequestList} />
             ))}
           </tbody>
         </Table>
