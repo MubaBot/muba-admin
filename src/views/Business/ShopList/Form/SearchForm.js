@@ -51,7 +51,7 @@ export default class SearchForm extends Component {
 
       if (result === false) {
         alert("fail");
-        this.toggle();
+        return this.toggle();
       }
     }
 
