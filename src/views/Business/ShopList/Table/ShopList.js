@@ -102,7 +102,13 @@ export default class ShopList extends Component {
   render() {
     return (
       <Fragment>
-        <SearchForm reloadList={this.updateShopList} history={this.props.history} mode={this.state.mode} />
+        <SearchForm
+          reloadList={this.updateShopList}
+          history={this.props.history}
+          mode={this.state.mode}
+          display={this.state.display}
+          count={this.state.count}
+        />
         <Table responsive striped>
           <colgroup>
             <col />

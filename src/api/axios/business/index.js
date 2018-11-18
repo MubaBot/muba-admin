@@ -49,6 +49,10 @@ const refuseRequest = async ({ id }) => {
   return Axios.Put(["/api/business/service", id, "refuse"].join("/"));
 };
 
+const updateChatbotData = async ({ page }) => {
+  return Axios.Post(["/api/business/chatbot", page].join("/"));
+};
+
 export {
   getRequestBusiness,
   getRequestBusinessLog,
@@ -58,5 +62,6 @@ export {
   updateShopAddressLatLng,
   getRequestShopService,
   allowRequest,
-  refuseRequest
+  refuseRequest,
+  updateChatbotData
 };

@@ -17,7 +17,6 @@ export default class ShopListItem extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <tr>
         <td className="text-center">{this.props.SHOPNAME}</td>

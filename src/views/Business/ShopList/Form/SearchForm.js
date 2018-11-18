@@ -1,10 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { Button, Col, Row, FormGroup, Input, InputGroup, InputGroupAddon } from "reactstrap";
 
+import UpdateChatbotModal from "./UpdateChatbotModal";
+
+import { BusinessApi } from "api";
+
 export default class SearchForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", owner: "" };
+    this.state = { name: "", owner: "", modal: false, now: 0 };
   }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -32,11 +36,37 @@ export default class SearchForm extends Component {
     this.props.history.push("/business/shop/1/name/" + this.state.name);
   };
 
+  toggle = () => this.setState({ modal: !this.state.modal });
+
+  updateChatbotData = async () => {
+    this.toggle();
+    this.setState({ now: 0 });
+    const pages = Math.ceil(this.props.count / this.props.display);
+    var i = 0;
+    for (i = 0; i < pages && (this.state.now === 0 || this.state.modal); i++) {
+      const result = await BusinessApi.updateChatbotData({ page: i })
+        // const result = await reSearch({ count: this.state.display })
+        .then(() => this.setState({ now: this.state.now + this.props.display }))
+        .catch(() => false);
+
+      if (result === false) {
+        alert("fail");
+        this.toggle();
+      }
+    }
+
+    if (i === pages) this.toggle();
+    this.setState({ now: 0 });
+  };
+
   render() {
     return (
       <Fragment>
         <Row>
-          <Col xs="5" />
+          <Col xs="2">
+            <Button onClick={this.updateChatbotData}>챗봇 데이터 갱신</Button>
+          </Col>
+          <Col xs="3" />
           <Col xs="3">
             <FormGroup>
               <InputGroup>
@@ -87,6 +117,7 @@ export default class SearchForm extends Component {
             </Button>
           </Col>
         </Row>
+        <UpdateChatbotModal modal={this.state.modal} toggle={this.toggle} now={this.state.now} count={this.props.count} />
       </Fragment>
     );
   }
